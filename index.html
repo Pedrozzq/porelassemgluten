@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Por Elas | Bolos Artesanais Sem Glúten</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D97757', // Terracotta
+                        primaryHover: '#c06346',
+                        secondary: '#E8D3C4', // Cream
+                        accent: '#839c4a', // Muted Green
+                        dark: '#332B29', // Dark Brown/Black
+                        light: '#FAF7F2', // Off-white background
+                    },
+                    fontFamily: {
+                        heading: ['"Playfair Display"', 'serif'],
+                        body: ['"Poppins"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Custom styles for subtle animations */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        /* Pulsating gluten-free badge */
+        .badge-pulse {
+            animation: fadeInUp 0.8s ease-out forwards, badgePulse 2s ease-in-out 0.8s infinite;
+        }
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(131, 156, 74, 0.45); }
+            50% { transform: scale(1.06); box-shadow: 0 0 0 12px rgba(131, 156, 74, 0); }
+        }
+
+        /* Fan Carousel */
+        .fan-layout {
+            height: 22rem;
+        }
+        .fan-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 9rem;
+            height: 15.75rem;
+            margin-left: -4.5rem;
+            margin-top: -7.875rem;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.25);
+        }
+        @media (min-width: 480px) {
+            .fan-layout { height: 26rem; }
+            .fan-card { width: 10rem; height: 17.5rem; margin-left: -5rem; margin-top: -8.75rem; }
+        }
+        @media (min-width: 640px) {
+            .fan-layout { height: 28rem; }
+            .fan-card { width: 11rem; height: 19.25rem; margin-left: -5.5rem; margin-top: -9.625rem; }
+        }
+        @media (min-width: 768px) {
+            .fan-layout { height: 34rem; }
+            .fan-card { width: 12.5rem; height: 21.875rem; margin-left: -6.25rem; margin-top: -10.9375rem; }
+        }
+        @media (min-width: 1024px) {
+            .fan-layout { height: 38rem; }
+            .fan-card { width: 14rem; height: 24.5rem; margin-left: -7rem; margin-top: -12.25rem; }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-body antialiased overflow-x-hidden">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-light flex flex-col items-center justify-center transition-opacity duration-500">
+        <img src="img/logo-nav.png" alt="Por Elas Sem Glúten" class="h-20 sm:h-24 w-auto mb-8">
+        <div class="w-48 h-1.5 bg-secondary/60 rounded-full overflow-hidden">
+            <div id="preloader-bar" class="h-full w-0 bg-primary rounded-full" style="transition: width 1.3s ease-in-out;"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-light/90 backdrop-blur-md border-b border-secondary/50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#">
+                        <img src="img/logo-nav.png" alt="Por Elas Sem Glúten" class="h-14 w-auto">
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#sobre" class="text-dark hover:text-primary transition-colors font-medium text-sm tracking-wide">Nossa História</a>
+                    <a href="#beneficios" class="text-dark hover:text-primary transition-colors font-medium text-sm tracking-wide">Diferenciais</a>
+                    <a href="#cardapio" class="text-dark hover:text-primary transition-colors font-medium text-sm tracking-wide">Cardápio</a>
+                    <a href="#videos" class="text-dark hover:text-primary transition-colors font-medium text-sm tracking-wide">Vídeos</a>
+                    <a href="#depoimentos" class="text-dark hover:text-primary transition-colors font-medium text-sm tracking-wide">Avaliações</a>
+                    <a href="#faq" class="text-dark hover:text-primary transition-colors font-medium text-sm tracking-wide">FAQ</a>
+                    <a href="#encomendar" class="bg-primary hover:bg-primaryHover text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-md shadow-primary/30 transform hover:-translate-y-0.5">
+                        Fazer Pedido
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-dark hover:text-primary focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="md:hidden hidden bg-light border-b border-secondary absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#sobre" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-dark hover:text-primary hover:bg-secondary/30">Nossa História</a>
+                <a href="#beneficios" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-dark hover:text-primary hover:bg-secondary/30">Diferenciais</a>
+                <a href="#cardapio" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-dark hover:text-primary hover:bg-secondary/30">Cardápio</a>
+                <a href="#videos" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-dark hover:text-primary hover:bg-secondary/30">Vídeos</a>
+                <a href="#depoimentos" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-dark hover:text-primary hover:bg-secondary/30">Avaliações</a>
+                <a href="#faq" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-dark hover:text-primary hover:bg-secondary/30">FAQ</a>
+                <a href="#encomendar" class="mobile-link block mt-4 text-center bg-primary text-white px-3 py-3 rounded-full font-medium">Fazer Pedido</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden min-h-screen flex items-center">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-80 h-80 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 transform translate-x-1/3 translate-y-1/3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col-reverse lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+                
+                <!-- Text Content -->
+                <div class="lg:col-span-6 text-center lg:text-left mt-8 mb-12 lg:mt-0 lg:mb-0">
+                    <div class="badge-pulse inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent font-bold text-xs sm:text-sm mb-6 fade-in-up">
+                        <span class="relative flex w-2.5 h-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                            <span class="relative inline-flex rounded-full w-2.5 h-2.5 bg-accent"></span>
+                        </span>
+                        100% Livre de Glúten
+                    </div>
+                    <h1 class="text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-dark leading-tight mb-6 fade-in-up delay-100">
+                        O prazer de um bolo perfeito,<br>
+                        <span class="text-primary italic">sem restrições.</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0 fade-in-up delay-200">
+                        Bolos artesanais feitos com ingredientes selecionados. Sabor irresistível e textura macia que você não vai acreditar que é sem glúten. Feito por elas, para todos.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start fade-in-up delay-300">
+                        <a href="#cardapio" class="bg-primary hover:bg-primaryHover text-white px-8 py-4 rounded-full font-medium text-lg transition-all shadow-lg shadow-primary/30 transform hover:-translate-y-1 text-center">
+                            Ver Cardápio
+                        </a>
+                        <a href="#sobre" class="bg-white border-2 border-secondary hover:border-primary text-dark px-8 py-4 rounded-full font-medium text-lg transition-all text-center">
+                            Nossa História
+                        </a>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="mt-12 grid grid-cols-2 gap-4 border-t border-secondary/60 pt-8 fade-in-up delay-300">
+                        <div>
+                            <p class="text-3xl font-heading font-bold text-primary">100%</p>
+                            <p class="text-sm text-gray-500">Seguro para Celíacos</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-heading font-bold text-primary">15+</p>
+                            <p class="text-sm text-gray-500">Sabores Exclusivos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="lg:col-span-6 relative fade-in-up delay-200">
+                    <img src="img/bolo-naked-cake-hero-nobg.png" alt="Bolo Por Elas sem glúten" class="w-full h-auto transform hover:scale-105 transition-transform duration-700">
+                    <!-- Decorative shape behind image -->
+                    <div class="absolute -z-10 top-1/2 left-1/2 w-full h-full bg-secondary rounded-full transform -translate-x-1/2 -translate-y-1/2 scale-105 blur-2xl opacity-40"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="cardapio" class="py-24 bg-light overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mx-auto md:mx-0 text-center md:text-left mb-16">
+                <h2 class="text-accent font-medium tracking-widest uppercase text-sm mb-3">Nossas Delícias</h2>
+                <h3 class="text-4xl lg:text-5xl font-heading font-bold text-dark mb-2">Os Favoritos da Casa</h3>
+                <p class="text-gray-500 text-sm flex items-center justify-center md:justify-start gap-2">
+                    <i class="fa-solid fa-arrows-left-right text-primary"></i>
+                    Role para o lado para ver todos
+                </p>
+            </div>
+        </div>
+
+        <div class="relative">
+            <button onclick="scrollCardapio(-1)" aria-label="Produto anterior" class="hidden sm:flex absolute left-2 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white shadow-lg items-center justify-center text-dark hover:bg-primary hover:text-white transition-colors">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="scrollCardapio(1)" aria-label="Próximo produto" class="hidden sm:flex absolute right-2 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white shadow-lg items-center justify-center text-dark hover:bg-primary hover:text-white transition-colors">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <div id="cardapio-scroller" class="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth cursor-grab px-4 sm:px-6 lg:px-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="img/bolo-chocolate-cobertura.jpg" alt="Bolo de Chocolate Intenso" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Mais Vendido</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-heading font-bold text-dark">Chocolate Intenso</h4>
+                            <span class="text-xl font-semibold text-primary">R$ 120</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-2">
+                            Feito com cacau 70% belga, farinha de amêndoas e recheio cremoso de brigadeiro funcional. Uma explosão de sabor.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Zero Lactose</span>
+                        </div>
+                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Bolo%20Chocolate%20Intenso." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="img/bolo-fuba-cremoso.jpg" alt="Bolo de Fubá Cremoso" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-heading font-bold text-dark">Fubá Cremoso</h4>
+                            <span class="text-xl font-semibold text-primary">R$ 95</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-2">
+                            O clássico da infância reimaginado. Massa fofinha com farinha de arroz e milho, com aquele miolo cremoso inconfundível.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Tradicional</span>
+                        </div>
+                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Bolo%20Fub%C3%A1%20Cremoso." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="img/bolo-naked-cake-real-cropped.jpg" alt="Bolo Especial Naked Cake" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Premium</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-heading font-bold text-dark pr-2">Especial Naked Cake</h4>
+                            <span class="text-xl font-semibold text-primary shrink-0 whitespace-nowrap">R$ 180</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-2">
+                            Camadas generosas, recheio cremoso e ganache de chocolate meio amargo. Feito sob encomenda para ocasiões especiais.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sob Encomenda</span>
+                        </div>
+                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Bolo%20Especial%20Naked%20Cake." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="img/torta-chocolate.jpg" alt="Torta de Chocolate" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-heading font-bold text-dark">Torta de Chocolate</h4>
+                            <span class="text-xl font-semibold text-primary">R$ 85</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-2">
+                            Base amanteigada com recheio denso e intenso de chocolate meio amargo. Para quem leva o chocolate a sério.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Individual ou Família</span>
+                        </div>
+                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Torta%20de%20Chocolate." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="img/rocambole-doce-de-leite.jpg" alt="Rocambole Doce de Leite" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-heading font-bold text-dark pr-2">Rocambole Doce de Leite</h4>
+                            <span class="text-xl font-semibold text-primary shrink-0 whitespace-nowrap">R$ 60</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-2">
+                            Massa fofinha enrolada com generoso recheio de doce de leite artesanal. Um clássico que nunca sai de moda.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Clássico</span>
+                        </div>
+                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Rocambole%20Doce%20de%20Leite." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="img/crepe-queijo.jpg" alt="Crepe de Queijo" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-heading font-bold text-dark">Crepe de Queijo</h4>
+                            <span class="text-xl font-semibold text-primary">R$ 28</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-2">
+                            Crepioca dourada recheada com queijo derretido. Prático, saboroso e perfeito para o lanche do dia a dia.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Salgado</span>
+                        </div>
+                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Crepe%20de%20Queijo." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="img/coxinhas.jpg" alt="Coxinha Sem Glúten" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-heading font-bold text-dark">Coxinha Sem Glúten</h4>
+                            <span class="text-xl font-semibold text-primary">R$ 12</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-2">
+                            Casquinha crocante por fora e recheio cremoso de frango por dentro. O salgadinho brasileiro, sem restrições.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Salgado</span>
+                        </div>
+                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Coxinha%20Sem%20Gl%C3%BAten." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 9 -->
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="img/empadas.jpg" alt="Empada Artesanal" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-2xl font-heading font-bold text-dark">Empada Artesanal</h4>
+                            <span class="text-xl font-semibold text-primary">R$ 10</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-2">
+                            Massa amanteigada e recheio suculento, assada até dourar. Perfeita para festas, eventos ou aquele lanche especial.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Salgado</span>
+                        </div>
+                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Empada%20Artesanal." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 max-w-2xl mx-auto">
+                <h2 class="text-accent font-medium tracking-widest uppercase text-sm mb-3">Direto da Cozinha</h2>
+                <h3 class="text-4xl font-heading font-bold text-dark mb-2">Veja Como é Feito</h3>
+                <p class="text-gray-500 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-arrows-left-right text-primary"></i>
+                    Role para o lado para ver todos
+                </p>
+            </div>
+        </div>
+
+        <div id="videos-scroller" class="flex gap-5 overflow-x-auto snap-x snap-mandatory px-4 sm:px-6 lg:px-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] pb-4 scroll-smooth cursor-grab [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <!-- Video 1 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-bolo-chocolate-cobertura.mp4" poster="img/bolo-chocolate-cobertura.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Cobertura de Chocolate</span>
+            </div>
+            <!-- Video 2 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-bolo-naked-cake.mp4" poster="img/bolo-naked-cake.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Bolo Especial</span>
+            </div>
+            <!-- Video 3 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-bolo-fuba.mp4" poster="img/bolo-fuba.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Bolo de Fubá</span>
+            </div>
+            <!-- Video 4 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-crepe-queijo.mp4" poster="img/crepe-queijo.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Crepe de Queijo</span>
+            </div>
+            <!-- Video 5 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-coxinhas.mp4" poster="img/coxinhas.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Coxinhas</span>
+            </div>
+            <!-- Video 6 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-empadas.mp4" poster="img/empadas.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Empadas</span>
+            </div>
+            <!-- Video 7 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-torta-chocolate.mp4" poster="img/torta-chocolate.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Torta de Chocolate</span>
+            </div>
+            <!-- Video 8 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-rocambole-doce-de-leite.mp4" poster="img/rocambole-doce-de-leite.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Rocambole Doce de Leite</span>
+            </div>
+            <!-- Video 9 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-bolo-cobertura-2.mp4" poster="img/bolo-cobertura-2.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Bolo com Cobertura</span>
+            </div>
+            <!-- Video 10 -->
+            <div class="relative shrink-0 w-52 sm:w-60 aspect-[9/16] rounded-3xl overflow-hidden shadow-lg snap-start bg-dark">
+                <video class="w-full h-full object-cover reel-video" src="video/video-folhados.mp4" poster="img/folhados.jpg" muted loop playsinline preload="metadata"></video>
+                <button onclick="toggleMute(this)" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center backdrop-blur-sm">
+                    <i class="fa-solid fa-volume-xmark text-sm"></i>
+                </button>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Folhados</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Images Collage -->
+                <div class="relative mb-16 lg:mb-0">
+                    <div class="grid grid-cols-2 gap-4 relative z-10">
+                        <img src="img/vitrine-empadas.jpg" alt="Vitrine da padaria Por Elas" class="rounded-3xl shadow-lg w-full h-64 object-cover transform translate-y-8">
+                        <img src="img/empadas-mao.jpg" alt="Empadas artesanais Por Elas" class="rounded-3xl shadow-lg w-full h-64 object-cover">
+                    </div>
+                    <!-- Background blob -->
+                    <div class="absolute top-1/2 left-1/2 w-full h-full bg-secondary/50 rounded-full transform -translate-x-1/2 -translate-y-1/2 -z-10 blur-3xl"></div>
+                </div>
+
+                <!-- Content -->
+                <div>
+                    <h2 class="text-accent font-medium tracking-widest uppercase text-sm mb-3">Nossa História</h2>
+                    <h3 class="text-4xl lg:text-5xl font-heading font-bold text-dark mb-6">Criado por Elas, amado por todos.</h3>
+                    <div class="space-y-4 text-gray-600 text-lg">
+                        <p>
+                            Tudo começou com amor de mãe. 💛 Ao descobrir que minhas duas filhas eram celíacas, nasceu um novo propósito: criar alimentos 100% sem glúten, seguros, saborosos e nutritivos.
+                        </p>
+                        <p>
+                            Entre desafios, aprendizados e muitas experiências, surgiu a <strong>Por Elas Sem Glúten</strong> — um projeto feito com carinho, ingredientes selecionados e processos cuidadosos, para que todos possam comer bem, com segurança e sem abrir mão do sabor. 🍞✨
+                        </p>
+                    </div>
+                    
+                    <div class="mt-10 flex items-center gap-6">
+                        <img class="w-14 h-14 rounded-full border-2 border-white object-cover shadow-md" src="img/fundadora-juliana.jpg" alt="Juliana Carvalho">
+                        <div>
+                            <p class="font-bold text-dark">Juliana Carvalho</p>
+                            <p class="text-sm text-gray-500">Fundadora</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="beneficios" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-2xl mx-auto">
+                <h2 class="text-accent font-medium tracking-widest uppercase text-sm mb-3">Por que escolher Por Elas?</h2>
+                <h3 class="text-4xl font-heading font-bold text-dark">Mais que uma alternativa,<br>uma escolha de saúde e sabor</h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <!-- Feature 1 -->
+                <div class="bg-light rounded-3xl p-8 text-center hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i class="fa-solid fa-wheat-awn-circle-exclamation text-2xl text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-dark mb-3">100% Sem Glúten</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Cozinha totalmente livre de contaminação cruzada. Segurança absoluta para celíacos e sensíveis ao glúten.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-light rounded-3xl p-8 text-center hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i class="fa-solid fa-cake-candles text-2xl text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-dark mb-3">Textura Perfeita</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Chega de bolos secos ou esfarelando. Nosso mix de farinhas garante a umidade e maciez que você ama.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-light rounded-3xl p-8 text-center hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i class="fa-solid fa-seedling text-2xl text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-dark mb-3">Ingredientes Nobres</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Farinha de amêndoas, cacau belga, biomassa de banana verde. Apenas o melhor para sua saúde.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-light rounded-3xl p-8 text-center hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i class="fa-solid fa-heart text-2xl text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-dark mb-3">Feito por Elas</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Produção artesanal diária feita por mulheres apaixonadas por confeitaria inclusiva.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="depoimentos" class="py-24 bg-secondary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-heading font-bold text-dark">O que dizem sobre nós</h3>
+            </div>
+
+            <!-- Fan Carousel -->
+            <div id="fan-carousel-root">
+                <section class="flex flex-col items-center w-full py-4 lg:py-8 px-4 md:px-8 relative z-20">
+                    <div class="flex items-center justify-center w-full max-w-[90rem]">
+                        <div class="fan-layout flex relative justify-center items-center w-full max-w-[80rem]">
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-1.jpg" loading="lazy" alt="Depoimento de cliente no Instagram" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-2.jpg" loading="lazy" alt="Depoimento de cliente" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-3.jpg" loading="lazy" alt="Depoimento de cliente" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-4.jpg" loading="lazy" alt="Depoimento de cliente" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-black"><img src="img/review-5.jpg" loading="lazy" alt="Depoimento de cliente no WhatsApp" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-6.jpg" loading="lazy" alt="Depoimento de cliente" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-7.jpg" loading="lazy" alt="Depoimento de cliente" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-8.jpg" loading="lazy" alt="Depoimento de cliente" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-9.jpg" loading="lazy" alt="Depoimento de cliente" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                            <div class="fan-card"><div class="relative w-full h-full overflow-hidden bg-white"><img src="img/review-10.jpg" loading="lazy" alt="Depoimento de cliente" class="absolute inset-0 w-full h-full object-contain z-10"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="fan-pagination flex items-center justify-center gap-4 mt-4 md:mt-6 z-30">
+                        <button type="button" class="fan-prev relative flex items-center justify-center rounded-full border-[1.5px] border-black/10 bg-black/5 backdrop-blur-[16px] text-black/40 cursor-pointer shrink-0 z-30 outline-none shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:border-black/25 hover:text-black/70 active:opacity-70 transition-colors duration-300 w-10 h-10 md:w-12 md:h-12" aria-label="Anterior">
+                            <svg class="relative z-[2] w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                            <span class="fan-dot w-2 h-2 rounded-full transition-all duration-300 bg-black/15"></span>
+                        </div>
+                        <button type="button" class="fan-next relative flex items-center justify-center rounded-full border-[1.5px] border-black/10 bg-black/5 backdrop-blur-[16px] text-black/40 cursor-pointer shrink-0 z-30 outline-none shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:border-black/25 hover:text-black/70 active:opacity-70 transition-colors duration-300 w-10 h-10 md:w-12 md:h-12" aria-label="Próximo">
+                            <svg class="relative z-[2] w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <h2 class="text-accent font-medium tracking-widest uppercase text-sm mb-3">Tire suas dúvidas</h2>
+                <h3 class="text-4xl font-heading font-bold text-dark">Perguntas Frequentes</h3>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item bg-light rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-bold text-dark">Os produtos são realmente 100% sem glúten e seguros para celíacos?</span>
+                        <i class="fa-solid fa-plus text-primary shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-6 pb-5 text-gray-600 leading-relaxed">
+                            Sim. Toda a nossa produção acontece em uma cozinha livre de contaminação cruzada, sem manipulação de trigo ou derivados de glúten. Ingredientes selecionados e processos cuidadosos garantem segurança total para celíacos e sensíveis ao glúten.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item bg-light rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-bold text-dark">Como faço para encomendar?</span>
+                        <i class="fa-solid fa-plus text-primary shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-6 pb-5 text-gray-600 leading-relaxed">
+                            É simples! Clique em "Peça pelo WhatsApp" ou em qualquer item do cardápio e envie sua mensagem. Combinamos sabor, tamanho, forma de pagamento e data de entrega direto por lá.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item bg-light rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-bold text-dark">Qual o prazo mínimo para fazer uma encomenda?</span>
+                        <i class="fa-solid fa-plus text-primary shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-6 pb-5 text-gray-600 leading-relaxed">
+                            Pedimos pelo menos 24 horas de antecedência para garantir a qualidade e o frescor de cada produto. Para bolos personalizados ou datas especiais, o ideal é encomendar com mais antecedência.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item bg-light rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-bold text-dark">Vocês entregam em casa?</span>
+                        <i class="fa-solid fa-plus text-primary shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-6 pb-5 text-gray-600 leading-relaxed">
+                            Sim! Entregamos com todo cuidado para preservar a integridade do produto. Fale com a gente pelo WhatsApp para confirmar se sua região está na área de entrega e qual o valor.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item bg-light rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-bold text-dark">Os produtos também são zero lactose ou veganos?</span>
+                        <i class="fa-solid fa-plus text-primary shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-6 pb-5 text-gray-600 leading-relaxed">
+                            Além de 100% sem glúten, alguns itens do nosso cardápio também são zero lactose. É só verificar a etiqueta de cada produto no cardápio ou perguntar pra gente antes de encomendar.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item bg-light rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-bold text-dark">Qual a validade e como devo conservar os produtos?</span>
+                        <i class="fa-solid fa-plus text-primary shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-6 pb-5 text-gray-600 leading-relaxed">
+                            Como não usamos conservantes artificiais, recomendamos manter os produtos refrigerados e consumir em poucos dias para aproveitar o máximo de frescor e sabor. Na entrega, te passamos a validade específica de cada item.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="faq-item bg-light rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-bold text-dark">Quais as formas de pagamento aceitas?</span>
+                        <i class="fa-solid fa-plus text-primary shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-6 pb-5 text-gray-600 leading-relaxed">
+                            Aceitamos as principais formas de pagamento, combinadas diretamente pelo WhatsApp no momento da encomenda. É só perguntar por lá qual funciona melhor para você.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="encomendar" class="py-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-primary rounded-[3rem] p-10 lg:p-16 text-center text-white relative overflow-hidden shadow-2xl">
+                <!-- Background details -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full transform translate-x-1/3 -translate-y-1/3"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full transform -translate-x-1/3 translate-y-1/3"></div>
+                
+                <h2 class="text-3xl lg:text-5xl font-heading font-bold mb-6 relative z-10">Pronto para adoçar seu dia sem culpa?</h2>
+                <p class="text-primary-100 text-lg mb-10 max-w-2xl mx-auto relative z-10 text-white/90">
+                    Aceitamos encomendas com 24h de antecedência. Entregamos na sua casa com todo cuidado para garantir a integridade do produto.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+                    <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20fazer%20uma%20encomenda." target="_blank" rel="noopener" class="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-light transition-colors flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-2xl text-green-500"></i> Peça pelo WhatsApp
+                    </a>
+                    <button onclick="alert('Abrindo cardápio digital...')" class="bg-primaryHover border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-list"></i> Cardápio Digital
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white/80 pt-16 pb-8 border-t-4 border-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="inline-block mb-4 bg-light rounded-2xl px-3 py-2">
+                        <img src="img/logo-nav.png" alt="Por Elas Sem Glúten" class="h-12 w-auto">
+                    </a>
+                    <p class="text-sm text-gray-400 mb-6">
+                        Bolos artesanais, 100% livres de glúten, feitos com amor e segurança para você celebrar a vida.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#sobre" class="hover:text-primary transition-colors text-sm">Nossa História</a></li>
+                        <li><a href="#cardapio" class="hover:text-primary transition-colors text-sm">Cardápio Completo</a></li>
+                        <li><a href="#beneficios" class="hover:text-primary transition-colors text-sm">Por que Sem Glúten?</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors text-sm">Perguntas Frequentes</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fa-solid fa-location-dot mt-1 text-primary"></i>
+                            <span>Ouro Preto, MG</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i class="fa-brands fa-whatsapp text-primary"></i>
+                            <span>(31) 97181-3988</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i class="fa-regular fa-envelope text-primary"></i>
+                            <span>contato@porelasbolos.com.br</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Novidades</h4>
+                    <p class="text-sm text-gray-400 mb-4">Cadastre-se para receber novos sabores e promoções exclusivas.</p>
+                    <form class="flex" onsubmit="event.preventDefault(); alert('Obrigado por se inscrever!');">
+                        <input type="email" placeholder="Seu e-mail" required class="w-full bg-white/10 border border-white/20 rounded-l-lg px-4 py-2 focus:outline-none focus:border-primary text-white text-sm">
+                        <button type="submit" class="bg-primary hover:bg-primaryHover px-4 py-2 rounded-r-lg transition-colors">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2024 Por Elas - Bolos Sem Glúten. Todos os direitos reservados.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Políticas de Privacidade</a>
+                    <a href="#" class="hover:text-white transition-colors">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fan Carousel Lightbox -->
+    <div id="fan-lightbox" class="hidden fixed inset-0 z-[200] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 cursor-zoom-out opacity-0 transition-opacity duration-300">
+        <button id="fan-lightbox-close" type="button" aria-label="Fechar" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10">
+            <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+        <img id="fan-lightbox-img" src="" alt="" class="max-w-full max-h-full rounded-2xl shadow-2xl cursor-default" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Fan Carousel logic -->
+    <script>
+        (function () {
+            var MAX_VISIBLE = 7;
+            var HALF = 3;
+
+            var FAN_POSITIONS = [
+                { rot: -21, scale: 0.7756, x: -30, y: 7.3, zIndex: 1 },
+                { rot: -14, scale: 0.8498, x: -22, y: 4.0, zIndex: 2 },
+                { rot: -7,  scale: 0.9346, x: -11, y: 1.3, zIndex: 3 },
+                { rot: 0,   scale: 1.0,    x: 0,   y: 0.0, zIndex: 10 },
+                { rot: 7,   scale: 0.9346, x: 11,  y: 1.3, zIndex: 3 },
+                { rot: 14,  scale: 0.8498, x: 22,  y: 4.0, zIndex: 2 },
+                { rot: 21,  scale: 0.7756, x: 30,  y: 7.3, zIndex: 1 }
+            ];
+
+            function getResponsiveMultiplier(width) {
+                if (width < 480) return 0.28;
+                if (width < 640) return 0.38;
+                if (width < 768) return 0.5;
+                if (width < 1024) return 0.75;
+                return 1.0;
+            }
+
+            function getHeightMultiplier(width) {
+                var idealPx;
+                if (width < 480) idealPx = 22 * 16;
+                else if (width < 640) idealPx = 26 * 16;
+                else if (width < 768) idealPx = 28 * 16;
+                else if (width < 1024) idealPx = 34 * 16;
+                else idealPx = 38 * 16;
+                var available = window.innerHeight * 0.7;
+                if (available >= idealPx) return 1;
+                return available / idealPx;
+            }
+
+            function getSlotConfig(totalCards, slot) {
+                if (totalCards >= MAX_VISIBLE) return FAN_POSITIONS[slot];
+                var center = totalCards >> 1;
+                var distance = totalCards > 1 ? (slot - center) / center : 0;
+                var absDistance = Math.abs(distance);
+                return {
+                    rot: distance * 21,
+                    scale: 1.0 - 0.2244 * absDistance * absDistance,
+                    x: distance * 30,
+                    y: absDistance * absDistance * 7.3,
+                    zIndex: 10 - Math.abs(slot - center)
+                };
+            }
+
+            function openLightbox(src, alt) {
+                var overlay = document.getElementById('fan-lightbox');
+                var img = document.getElementById('fan-lightbox-img');
+                img.src = src;
+                img.alt = alt || '';
+                overlay.classList.remove('hidden');
+                requestAnimationFrame(function () { overlay.style.opacity = '1'; });
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                var overlay = document.getElementById('fan-lightbox');
+                overlay.style.opacity = '0';
+                document.body.style.overflow = '';
+                setTimeout(function () { overlay.classList.add('hidden'); }, 300);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var overlay = document.getElementById('fan-lightbox');
+                if (overlay) {
+                    overlay.addEventListener('click', closeLightbox);
+                    var closeBtn = document.getElementById('fan-lightbox-close');
+                    if (closeBtn) closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closeLightbox(); });
+                    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+                }
+            });
+
+            function initFanCarousel(root) {
+                var container = root.querySelector('.fan-layout');
+                var cardElements = Array.prototype.slice.call(container.querySelectorAll('.fan-card'));
+                var totalCards = cardElements.length;
+                if (!totalCards) return;
+
+                var needsPagination = totalCards > MAX_VISIBLE;
+                var centerIndex = needsPagination ? HALF : (totalCards >> 1);
+                var isAnimating = false;
+                var hasEntered = false;
+                var direction = null;
+                var prevVisible = {};
+                var hoverCleanup = null;
+                var currentFan = null;
+
+                function getVisibleMap(center) {
+                    var map = {};
+                    if (!needsPagination) {
+                        for (var i = 0; i < totalCards; i++) map[i] = i;
+                        return map;
+                    }
+                    for (var slot = 0; slot < MAX_VISIBLE; slot++) {
+                        var idx = ((center + slot - HALF) % totalCards + totalCards) % totalCards;
+                        map[idx] = slot;
+                    }
+                    return map;
+                }
+
+                function updateDots() {
+                    var dots = root.querySelectorAll('.fan-dot');
+                    dots.forEach(function (dot, i) {
+                        if (i === centerIndex) {
+                            dot.classList.add('bg-black/70', 'scale-[1.3]');
+                            dot.classList.remove('bg-black/15');
+                        } else {
+                            dot.classList.remove('bg-black/70', 'scale-[1.3]');
+                            dot.classList.add('bg-black/15');
+                        }
+                    });
+                }
+
+                function setupHover(visibleMap, config) {
+                    if (hoverCleanup) hoverCleanup();
+
+                    var visibleEntries = [];
+                    cardElements.forEach(function (el, i) {
+                        if (visibleMap[i] !== undefined) visibleEntries.push({ el: el, slot: visibleMap[i] });
+                    });
+                    visibleEntries.sort(function (a, b) { return a.slot - b.slot; });
+
+                    var activeSlot = null;
+                    var leaveTimer = null;
+                    var centerSlot = visibleEntries.length >> 1;
+
+                    function updateHoverLayout(hoveredSlot) {
+                        var mult = getResponsiveMultiplier(window.innerWidth);
+                        var hM = getHeightMultiplier(window.innerWidth);
+
+                        visibleEntries.forEach(function (entry) {
+                            var el = entry.el, slot = entry.slot;
+                            var base = config(slot);
+                            var targetX = base.x * mult;
+                            var targetY = base.y * hM;
+                            var targetRot = base.rot;
+                            var targetScale = base.scale;
+                            var delay = 0;
+
+                            if (hoveredSlot !== null) {
+                                var distance = Math.abs(slot - hoveredSlot);
+                                delay = distance * 0.02;
+
+                                if (slot === hoveredSlot) {
+                                    targetY -= 2.5 * hM;
+                                    targetScale *= 1.08;
+                                } else {
+                                    var normalized = centerSlot > 0 ? (slot - centerSlot) / centerSlot : 0;
+                                    var pushStrength = 8 * (1 - Math.abs(normalized)) * (1 + 0.2 * Math.max(0, 3 - distance));
+                                    if (slot < hoveredSlot) {
+                                        targetX -= pushStrength * mult;
+                                        targetRot -= 3 / (distance + 1);
+                                    } else {
+                                        targetX += pushStrength * mult;
+                                        targetRot += 3 / (distance + 1);
+                                    }
+                                    if (slot === visibleEntries.length - 1 && hoveredSlot < centerSlot) targetY -= 1 * hM;
+                                    if (slot === 0 && hoveredSlot > centerSlot) targetY -= 1 * hM;
+                                }
+                            } else {
+                                delay = Math.abs(slot - centerSlot) * 0.02;
+                            }
+
+                            gsap.to(el, {
+                                x: targetX + 'rem', y: targetY + 'rem', rotation: targetRot, scale: targetScale,
+                                duration: 0.5, delay: delay, ease: 'elastic.out(1,.75)', overwrite: 'auto'
+                            });
+                            gsap.set(el, { zIndex: base.zIndex });
+                        });
+                    }
+
+                    var enterHandlers = visibleEntries.map(function (entry) {
+                        var handler = function () {
+                            if (isAnimating) return;
+                            if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
+                            if (activeSlot !== entry.slot) { activeSlot = entry.slot; updateHoverLayout(entry.slot); }
+                        };
+                        entry.el.addEventListener('mouseenter', handler);
+                        return { el: entry.el, handler: handler };
+                    });
+
+                    function onMouseLeave() {
+                        if (isAnimating) return;
+                        if (leaveTimer) clearTimeout(leaveTimer);
+                        leaveTimer = setTimeout(function () { activeSlot = null; updateHoverLayout(null); }, 50);
+                    }
+                    container.addEventListener('mouseleave', onMouseLeave);
+
+                    function onResize() { if (!isAnimating) updateHoverLayout(activeSlot); }
+                    window.addEventListener('resize', onResize);
+
+                    hoverCleanup = function () {
+                        enterHandlers.forEach(function (h) { h.el.removeEventListener('mouseenter', h.handler); });
+                        container.removeEventListener('mouseleave', onMouseLeave);
+                        window.removeEventListener('resize', onResize);
+                        if (leaveTimer) clearTimeout(leaveTimer);
+                    };
+
+                    currentFan = { visibleEntries: visibleEntries, updateHoverLayout: updateHoverLayout };
+                }
+
+                function render() {
+                    var visibleMap = getVisibleMap(centerIndex);
+                    var previouslyVisible = prevVisible;
+                    var isFirstMount = !hasEntered;
+                    var multiplier = getResponsiveMultiplier(window.innerWidth);
+                    var hMult = getHeightMultiplier(window.innerWidth);
+                    var slotCount = needsPagination ? MAX_VISIBLE : totalCards;
+                    function config(slot) { return getSlotConfig(slotCount, slot); }
+
+                    if (isFirstMount) isAnimating = true;
+
+                    var completedCount = 0;
+                    var visibleCount = Object.keys(visibleMap).length;
+                    function onCardDone() {
+                        completedCount++;
+                        if (completedCount >= visibleCount) {
+                            isAnimating = false;
+                            if (isFirstMount) hasEntered = true;
+                        }
+                    }
+
+                    cardElements.forEach(function (card, cardIndex) {
+                        var slot = visibleMap[cardIndex];
+                        var wasVisible = previouslyVisible[cardIndex] !== undefined;
+
+                        if (slot !== undefined) {
+                            var cfg = config(slot);
+                            var target = {
+                                x: (cfg.x * multiplier) + 'rem',
+                                y: (cfg.y * hMult) + 'rem',
+                                rotation: cfg.rot,
+                                scale: cfg.scale,
+                                opacity: 1,
+                                zIndex: cfg.zIndex,
+                                onComplete: onCardDone
+                            };
+
+                            if (isFirstMount) {
+                                gsap.set(card, { x: 0, y: (12 * hMult) + 'rem', rotation: 0, scale: 0.5, opacity: 0 });
+                                gsap.to(card, Object.assign({}, target, { duration: 1.2, ease: 'elastic.out(1.05,.78)', delay: 0.2 + slot * 0.06 }));
+                            } else if (!wasVisible) {
+                                var enterX = direction === 'right' ? 40 : -40;
+                                gsap.set(card, { x: enterX + 'rem', y: (cfg.y * hMult) + 'rem', rotation: direction === 'right' ? 30 : -30, scale: 0.5, opacity: 0 });
+                                gsap.to(card, Object.assign({}, target, { duration: 0.6, ease: 'power2.out' }));
+                            } else {
+                                gsap.to(card, Object.assign({}, target, { duration: 0.5, ease: 'power2.out' }));
+                            }
+                        } else if (wasVisible) {
+                            var exitX = direction === 'right' ? -40 : 40;
+                            gsap.to(card, { x: exitX + 'rem', opacity: 0, scale: 0.5, rotation: direction === 'right' ? -30 : 30, duration: 0.4, ease: 'power2.in', zIndex: 0 });
+                        } else if (isFirstMount) {
+                            gsap.set(card, { opacity: 0, scale: 0.3, x: 0, y: 0, zIndex: 0 });
+                        }
+                    });
+
+                    prevVisible = visibleMap;
+                    setupHover(visibleMap, config);
+                    updateDots();
+                }
+
+                function cycle(dir) {
+                    if (isAnimating || !needsPagination) return;
+                    isAnimating = true;
+                    direction = dir;
+                    centerIndex = dir === 'right' ? (centerIndex + 1) % totalCards : (centerIndex - 1 + totalCards) % totalCards;
+                    render();
+                }
+
+                var prevBtn = root.querySelector('.fan-prev');
+                var nextBtn = root.querySelector('.fan-next');
+                if (prevBtn) prevBtn.addEventListener('click', function () { cycle('left'); });
+                if (nextBtn) nextBtn.addEventListener('click', function () { cycle('right'); });
+                if (!needsPagination) {
+                    var pagination = root.querySelector('.fan-pagination');
+                    if (pagination) pagination.style.display = 'none';
+                }
+
+                // Let the user scroll/swipe sideways over the fan to pick a card
+                if (needsPagination) {
+                    container.style.touchAction = 'pan-y';
+                    var wheelCooldown = false;
+                    container.addEventListener('wheel', function (e) {
+                        if (Math.abs(e.deltaX) < 12) return;
+                        e.preventDefault();
+                        if (wheelCooldown || isAnimating) return;
+                        wheelCooldown = true;
+                        cycle(e.deltaX > 0 ? 'right' : 'left');
+                        setTimeout(function () { wheelCooldown = false; }, 350);
+                    }, { passive: false });
+
+                    var dragStartX = null;
+                    var dragging = false;
+                    container.addEventListener('pointerdown', function (e) {
+                        dragStartX = e.clientX;
+                        dragging = true;
+                    });
+                    container.addEventListener('pointermove', function (e) {
+                        if (!dragging || dragStartX === null || isAnimating) return;
+                        var delta = e.clientX - dragStartX;
+                        if (Math.abs(delta) > 60) {
+                            cycle(delta < 0 ? 'right' : 'left');
+                            dragStartX = null;
+                            dragging = false;
+                        }
+                    });
+                    ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (evt) {
+                        container.addEventListener(evt, function () { dragging = false; dragStartX = null; });
+                    });
+                }
+
+                // Let the user drag/scroll a finger sideways over the fan to bring a card to front (touch-friendly hover)
+                container.style.touchAction = 'pan-y';
+                var focusDragActive = false;
+                function focusNearestCard(clientX) {
+                    if (!currentFan || !currentFan.visibleEntries.length) return;
+                    var nearestSlot = null, nearestDist = Infinity;
+                    currentFan.visibleEntries.forEach(function (entry) {
+                        var rect = entry.el.getBoundingClientRect();
+                        var dist = Math.abs(clientX - (rect.left + rect.width / 2));
+                        if (dist < nearestDist) { nearestDist = dist; nearestSlot = entry.slot; }
+                    });
+                    if (nearestSlot !== null) currentFan.updateHoverLayout(nearestSlot);
+                }
+                container.addEventListener('pointerdown', function (e) {
+                    if (isAnimating) return;
+                    focusDragActive = true;
+                    focusNearestCard(e.clientX);
+                });
+                container.addEventListener('pointermove', function (e) {
+                    if (!focusDragActive || isAnimating) return;
+                    focusNearestCard(e.clientX);
+                });
+                ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (evt) {
+                    container.addEventListener(evt, function () {
+                        focusDragActive = false;
+                        if (currentFan && !isAnimating) currentFan.updateHoverLayout(null);
+                    });
+                });
+
+                // Click a card to open its image full-size
+                cardElements.forEach(function (card) {
+                    var img = card.querySelector('img');
+                    if (!img) return;
+                    card.style.cursor = 'zoom-in';
+                    card.addEventListener('click', function () {
+                        if (isAnimating) return;
+                        openLightbox(img.src, img.alt);
+                    });
+                });
+
+                render();
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var root = document.getElementById('fan-carousel-root');
+                if (root && window.gsap) initFanCarousel(root);
+            });
+        })();
+    </script>
+
+    <!-- Scripts -->
+    <script>
+        // Preloader: 1.5s splash with logo + progress bar
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            const bar = document.getElementById('preloader-bar');
+            requestAnimationFrame(() => { bar.style.width = '100%'; });
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.pointerEvents = 'none';
+                setTimeout(() => preloader.remove(), 500);
+            }, 1500);
+        });
+
+        // Navbar blur and shadow on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('bg-light/90', 'bg-white/95');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('bg-white/95', 'bg-light/90');
+            }
+        });
+
+        // Cardápio carousel: arrow navigation
+        const cardapioScroller = document.getElementById('cardapio-scroller');
+        function scrollCardapio(direction) {
+            const card = cardapioScroller.querySelector(':scope > div');
+            const step = card ? card.offsetWidth + 32 : 320; // card width + gap-8
+            cardapioScroller.scrollBy({ left: direction * step, behavior: 'smooth' });
+        }
+
+        // Enable mouse drag-to-scroll on horizontal carousels
+        function enableDragScroll(el) {
+            let isDown = false, startX, scrollLeft;
+            el.addEventListener('mousedown', (e) => {
+                isDown = true;
+                el.classList.add('cursor-grabbing');
+                startX = e.pageX - el.offsetLeft;
+                scrollLeft = el.scrollLeft;
+            });
+            ['mouseleave', 'mouseup'].forEach(evt => el.addEventListener(evt, () => {
+                isDown = false;
+                el.classList.remove('cursor-grabbing');
+            }));
+            el.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - el.offsetLeft;
+                el.scrollLeft = scrollLeft - (x - startX) * 1.5;
+            });
+        }
+
+        // Gently auto-scroll a horizontal carousel back and forth, pausing on interaction
+        function enableAutoScroll(el, speed = 0.5) {
+            let paused = false, resumeTimer = null, direction = 1;
+            const pause = () => {
+                paused = true;
+                clearTimeout(resumeTimer);
+                resumeTimer = setTimeout(() => { paused = false; }, 3000);
+            };
+            ['mouseenter', 'mousedown', 'touchstart', 'wheel'].forEach(evt =>
+                el.addEventListener(evt, pause, { passive: true })
+            );
+            (function tick() {
+                if (!paused) {
+                    const maxScroll = el.scrollWidth - el.clientWidth;
+                    if (maxScroll > 0) {
+                        if (el.scrollLeft >= maxScroll - 1) direction = -1;
+                        else if (el.scrollLeft <= 0) direction = 1;
+                        el.scrollLeft += speed * direction;
+                    }
+                }
+                requestAnimationFrame(tick);
+            })();
+        }
+
+        [cardapioScroller, document.getElementById('videos-scroller')].forEach((el) => {
+            enableDragScroll(el);
+            enableAutoScroll(el);
+        });
+
+        // Toggle sound on video reel cards
+        function toggleMute(btn) {
+            const video = btn.previousElementSibling;
+            video.muted = !video.muted;
+            const icon = btn.querySelector('i');
+            icon.className = video.muted ? 'fa-solid fa-volume-xmark text-sm' : 'fa-solid fa-volume-high text-sm';
+        }
+
+        // Play/pause reel videos only while visible (saves bandwidth, avoids 8 videos playing at once)
+        const reelObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.play().catch(() => {});
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, { threshold: 0.6 });
+        document.querySelectorAll('.reel-video').forEach((video) => reelObserver.observe(video));
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-item').forEach((item) => {
+            const trigger = item.querySelector('.faq-trigger');
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.faq-trigger i');
+
+            trigger.addEventListener('click', () => {
+                const isOpen = item.classList.contains('faq-open');
+
+                document.querySelectorAll('.faq-item.faq-open').forEach((openItem) => {
+                    if (openItem !== item) {
+                        openItem.classList.remove('faq-open');
+                        openItem.querySelector('.faq-answer').style.maxHeight = '0px';
+                        openItem.querySelector('.faq-trigger i').classList.remove('rotate-45');
+                    }
+                });
+
+                if (isOpen) {
+                    item.classList.remove('faq-open');
+                    answer.style.maxHeight = '0px';
+                    icon.classList.remove('rotate-45');
+                } else {
+                    item.classList.add('faq-open');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    icon.classList.add('rotate-45');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer for fade-in animations on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    observer.unobserve(entry.target); // Run animation once
+                }
+            });
+        }, observerOptions);
+
+        // Select elements to animate that aren't already in the hero section (which load immediately)
+        document.querySelectorAll('section:not(.pt-32) .bg-light, section:not(.pt-32) .bg-white.rounded-\\[2rem\\], section:not(.pt-32) h2, section:not(.pt-32) h3').forEach((el) => {
+            el.style.opacity = '0'; // Initial state before animation
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
