@@ -895,23 +895,16 @@
 
     <!-- Full Menu Modal -->
     <div id="menu-modal" class="hidden fixed inset-0 z-[250] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-light w-full max-w-4xl h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+        <div class="bg-light w-full max-w-2xl h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden">
             <div class="flex items-center justify-between px-6 py-4 border-b border-secondary/60 shrink-0">
                 <h3 class="text-xl font-heading font-bold text-dark">Cardápio Completo</h3>
-                <div class="flex items-center gap-2">
-                    <a href="img/cardapio-atualizado.pdf" download class="w-9 h-9 rounded-full bg-secondary/60 hover:bg-secondary text-dark flex items-center justify-center transition-colors" aria-label="Baixar PDF" title="Baixar PDF">
-                        <i class="fa-solid fa-download"></i>
-                    </a>
-                    <button type="button" onclick="closeMenuModal()" aria-label="Fechar" class="w-9 h-9 rounded-full bg-secondary/60 hover:bg-secondary text-dark flex items-center justify-center transition-colors">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
+                <button type="button" onclick="closeMenuModal()" aria-label="Fechar" class="w-9 h-9 rounded-full bg-secondary/60 hover:bg-secondary text-dark flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-            <div class="flex-1 min-h-0 relative bg-secondary/10">
-                <iframe id="menu-modal-iframe" src="" class="w-full h-full" title="Cardápio Completo"></iframe>
-                <p class="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-gray-500 bg-white/90 px-3 py-1.5 rounded-full shadow">
-                    Não está carregando? <a href="img/cardapio-atualizado.pdf" download class="text-primary font-semibold hover:underline">Baixe o PDF aqui</a>
-                </p>
+            <div class="flex-1 min-h-0 overflow-y-auto bg-secondary/10 p-4 space-y-4">
+                <img src="img/cardapio-pagina-1.jpg" alt="Cardápio Completo - página 1" class="w-full h-auto rounded-xl shadow-md">
+                <img src="img/cardapio-pagina-2.jpg" alt="Cardápio Completo - página 2" class="w-full h-auto rounded-xl shadow-md">
             </div>
         </div>
     </div>
@@ -1062,8 +1055,6 @@
 
         function openMenuModal() {
             const overlay = document.getElementById('menu-modal');
-            const iframe = document.getElementById('menu-modal-iframe');
-            if (!iframe.getAttribute('src')) iframe.src = 'img/cardapio-atualizado.pdf';
             overlay.classList.remove('hidden');
             requestAnimationFrame(() => { overlay.style.opacity = '1'; });
             document.body.style.overflow = 'hidden';
