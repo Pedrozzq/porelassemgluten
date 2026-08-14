@@ -435,10 +435,10 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 flex flex-wrap justify-center gap-4">
-            <a href="img/cardapio-atualizado.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-3 bg-primary hover:bg-primaryHover text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
+            <button type="button" onclick="openMenuModal()" class="inline-flex items-center gap-3 bg-primary hover:bg-primaryHover text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
                 <i class="fa-solid fa-book-open"></i>
                 Ver Cardápio Completo
-            </a>
+            </button>
             <button type="button" onclick="openOrderModal()" class="inline-flex items-center gap-3 bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
                 <i class="fa-solid fa-pen-to-square"></i>
                 Fazer Pedido Personalizado
@@ -893,6 +893,29 @@
         </div>
     </footer>
 
+    <!-- Full Menu Modal -->
+    <div id="menu-modal" class="hidden fixed inset-0 z-[250] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-light w-full max-w-4xl h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-secondary/60 shrink-0">
+                <h3 class="text-xl font-heading font-bold text-dark">Cardápio Completo</h3>
+                <div class="flex items-center gap-2">
+                    <a href="img/cardapio-atualizado.pdf" download class="w-9 h-9 rounded-full bg-secondary/60 hover:bg-secondary text-dark flex items-center justify-center transition-colors" aria-label="Baixar PDF" title="Baixar PDF">
+                        <i class="fa-solid fa-download"></i>
+                    </a>
+                    <button type="button" onclick="closeMenuModal()" aria-label="Fechar" class="w-9 h-9 rounded-full bg-secondary/60 hover:bg-secondary text-dark flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 min-h-0 relative bg-secondary/10">
+                <iframe id="menu-modal-iframe" src="" class="w-full h-full" title="Cardápio Completo"></iframe>
+                <p class="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-gray-500 bg-white/90 px-3 py-1.5 rounded-full shadow">
+                    Não está carregando? <a href="img/cardapio-atualizado.pdf" download class="text-primary font-semibold hover:underline">Baixe o PDF aqui</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Fan Carousel Lightbox -->
     <div id="fan-lightbox" class="hidden fixed inset-0 z-[200] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 cursor-zoom-out opacity-0 transition-opacity duration-300">
         <button id="fan-lightbox-close" type="button" aria-label="Fechar" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10">
@@ -1036,6 +1059,32 @@
             closeOrderModal();
             resetOrderForm();
         }
+
+        function openMenuModal() {
+            const overlay = document.getElementById('menu-modal');
+            const iframe = document.getElementById('menu-modal-iframe');
+            if (!iframe.getAttribute('src')) iframe.src = 'img/cardapio-atualizado.pdf';
+            overlay.classList.remove('hidden');
+            requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuModal() {
+            const overlay = document.getElementById('menu-modal');
+            overlay.style.opacity = '0';
+            document.body.style.overflow = '';
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuOverlay = document.getElementById('menu-modal');
+            if (menuOverlay) {
+                menuOverlay.addEventListener('click', (e) => { if (e.target === menuOverlay) closeMenuModal(); });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !menuOverlay.classList.contains('hidden')) closeMenuModal();
+                });
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             const overlay = document.getElementById('order-modal');
