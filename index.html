@@ -380,9 +380,18 @@
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Lactose</span>
                         </div>
-                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Panqueca%20de%20Frango." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                        <div class="flex items-center justify-center gap-4 mb-4">
+                            <button type="button" onclick="changeQty('qty-panqueca-frango', -1)" aria-label="Diminuir quantidade" class="w-9 h-9 rounded-full border border-secondary text-dark hover:bg-primary hover:text-white transition-colors flex items-center justify-center">
+                                <i class="fa-solid fa-minus text-xs"></i>
+                            </button>
+                            <span id="qty-panqueca-frango" class="w-6 text-center font-semibold text-dark">1</span>
+                            <button type="button" onclick="changeQty('qty-panqueca-frango', 1)" aria-label="Aumentar quantidade" class="w-9 h-9 rounded-full border border-secondary text-dark hover:bg-primary hover:text-white transition-colors flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                        <button type="button" onclick="encomendarComQuantidade('Panqueca de Frango', 'qty-panqueca-frango')" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
                             <i class="fa-solid fa-basket-shopping"></i> Encomendar
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -403,9 +412,18 @@
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Salgado</span>
                         </div>
-                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Coxinha%20Sem%20Gl%C3%BAten." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                        <div class="flex items-center justify-center gap-4 mb-4">
+                            <button type="button" onclick="changeQty('qty-coxinha', -1)" aria-label="Diminuir quantidade" class="w-9 h-9 rounded-full border border-secondary text-dark hover:bg-primary hover:text-white transition-colors flex items-center justify-center">
+                                <i class="fa-solid fa-minus text-xs"></i>
+                            </button>
+                            <span id="qty-coxinha" class="w-6 text-center font-semibold text-dark">1</span>
+                            <button type="button" onclick="changeQty('qty-coxinha', 1)" aria-label="Aumentar quantidade" class="w-9 h-9 rounded-full border border-secondary text-dark hover:bg-primary hover:text-white transition-colors flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                        <button type="button" onclick="encomendarComQuantidade('Coxinha Sem Glúten', 'qty-coxinha')" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
                             <i class="fa-solid fa-basket-shopping"></i> Encomendar
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -426,9 +444,18 @@
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Salgado</span>
                         </div>
-                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Empada%20Artesanal." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                        <div class="flex items-center justify-center gap-4 mb-4">
+                            <button type="button" onclick="changeQty('qty-empada', -1)" aria-label="Diminuir quantidade" class="w-9 h-9 rounded-full border border-secondary text-dark hover:bg-primary hover:text-white transition-colors flex items-center justify-center">
+                                <i class="fa-solid fa-minus text-xs"></i>
+                            </button>
+                            <span id="qty-empada" class="w-6 text-center font-semibold text-dark">1</span>
+                            <button type="button" onclick="changeQty('qty-empada', 1)" aria-label="Aumentar quantidade" class="w-9 h-9 rounded-full border border-secondary text-dark hover:bg-primary hover:text-white transition-colors flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                        <button type="button" onclick="encomendarComQuantidade('Empada Artesanal', 'qty-empada')" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
                             <i class="fa-solid fa-basket-shopping"></i> Encomendar
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1010,7 +1037,7 @@
             // Salgados
             { name: 'Enroladinho de Pizza', price: 30, category: 'Salgados' },
             { name: 'Enroladinho de Salsicha (Sem Lactose)', price: 32, category: 'Salgados' },
-            { name: 'Panqueca de Frango (Sem Lactose)', price: 35, category: 'Salgados', unit: '4 unidades' },
+            { name: 'Panqueca de Frango (Sem Lactose)', price: 35, category: 'Salgados', img: 'img/crepe-queijo.jpg', unit: '4 unidades' },
             { name: 'Empadão de Frango (Sem Lactose)', price: 40, category: 'Salgados' },
             { name: 'Coxinha (Sem Lactose)', price: 58, category: 'Salgados', img: 'img/coxinhas.jpg', unit: '25 unidades' },
             { name: 'Empadinha', price: 58, category: 'Salgados', img: 'img/empadas.jpg', unit: '25 unidades' },
@@ -1661,6 +1688,18 @@
             const card = cardapioScroller.querySelector(':scope > div');
             const step = card ? card.offsetWidth + 32 : 320; // card width + gap-8
             cardapioScroller.scrollBy({ left: direction * step, behavior: 'smooth' });
+        }
+
+        // Favoritos da Casa: quantity stepper + WhatsApp order with quantity
+        function changeQty(qtyId, delta) {
+            const el = document.getElementById(qtyId);
+            const val = Math.max(1, parseInt(el.textContent, 10) + delta);
+            el.textContent = val;
+        }
+        function encomendarComQuantidade(productName, qtyId) {
+            const qty = document.getElementById(qtyId).textContent;
+            const msg = encodeURIComponent(`Olá! Quero encomendar: ${qty}x ${productName}.`);
+            window.open(`https://wa.me/5531971813988?text=${msg}`, '_blank', 'noopener');
         }
 
         // Enable mouse drag-to-scroll on horizontal carousels
