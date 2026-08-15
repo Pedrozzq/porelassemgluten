@@ -296,24 +296,24 @@
                 <!-- Product 4 -->
                 <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group shrink-0 w-[82vw] xs:w-80 sm:w-96 snap-start">
                     <div class="relative h-72 overflow-hidden">
-                        <img src="img/bolo-naked-cake-real-cropped.jpg" alt="Bolo Especial Naked Cake" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
+                        <img src="img/bolo-naked-cake-real-cropped.jpg" alt="Bolo Aniversário" class="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary">Premium</div>
                     </div>
                     <div class="p-8">
                         <div class="flex justify-between items-start mb-4">
-                            <h4 class="text-2xl font-heading font-bold text-dark pr-2">Especial Naked Cake</h4>
-                            <span class="text-xl font-semibold text-primary shrink-0 whitespace-nowrap">R$ 180</span>
+                            <h4 class="text-2xl font-heading font-bold text-dark pr-2">Bolo Aniversário</h4>
+                            <span class="text-xl font-semibold text-primary shrink-0 whitespace-nowrap">A partir de R$ 240</span>
                         </div>
                         <p class="text-gray-600 text-sm mb-6 line-clamp-2">
-                            Camadas generosas, recheio cremoso e ganache de chocolate meio amargo. Feito sob encomenda para ocasiões especiais.
+                            Camadas generosas, recheio cremoso e ganache de chocolate meio amargo. Feito sob encomenda para ocasiões especiais. O valor varia de acordo com o tamanho escolhido.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-6">
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sem Glúten</span>
                             <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-md">Sob Encomenda</span>
                         </div>
-                        <a href="https://wa.me/5531971813988?text=Ol%C3%A1!%20Quero%20encomendar%3A%20Bolo%20Especial%20Naked%20Cake." target="_blank" rel="noopener" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
-                            <i class="fa-solid fa-basket-shopping"></i> Encomendar
-                        </a>
+                        <button type="button" onclick="openBirthdayCakeModal()" class="w-full bg-light hover:bg-primary hover:text-white text-dark font-medium py-3 rounded-xl transition-colors border border-secondary hover:border-primary flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-ruler-combined"></i> Escolher Tamanho
+                        </button>
                     </div>
                 </div>
 
@@ -348,7 +348,7 @@
                     <div class="p-8">
                         <div class="flex justify-between items-start mb-4">
                             <h4 class="text-2xl font-heading font-bold text-dark pr-2">Rocambole Doce de Leite</h4>
-                            <span class="text-xl font-semibold text-primary shrink-0 whitespace-nowrap">R$ 60</span>
+                            <span class="text-xl font-semibold text-primary shrink-0 whitespace-nowrap">R$ 65</span>
                         </div>
                         <p class="text-gray-600 text-sm mb-6 line-clamp-2">
                             Massa fofinha enrolada com generoso recheio de doce de leite artesanal. Um clássico que nunca sai de moda.
@@ -909,6 +909,47 @@
         </div>
     </div>
 
+    <!-- Birthday Cake Size Modal -->
+    <div id="birthday-modal" class="hidden fixed inset-0 z-[250] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-light w-full max-w-lg max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-secondary/60 shrink-0">
+                <h3 class="text-2xl font-heading font-bold text-dark">Bolo Aniversário</h3>
+                <button type="button" onclick="closeBirthdayCakeModal()" aria-label="Fechar" class="w-9 h-9 rounded-full bg-secondary/60 hover:bg-secondary text-dark flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="overflow-y-auto px-6 py-5 space-y-3">
+                <p class="text-sm font-medium text-dark mb-1">Escolha o tamanho do bolo</p>
+
+                <button type="button" onclick="selectBirthdayCakeSize('15cm', '10 a 15 pessoas', 'R$ 240,00 a R$ 280,00')" class="w-full flex items-center justify-between gap-4 p-4 rounded-2xl border-2 border-secondary/60 bg-white hover:border-primary hover:bg-secondary/20 transition-colors text-left">
+                    <div>
+                        <p class="font-bold text-dark">15cm</p>
+                        <p class="text-xs text-gray-500">Serve de 10 a 15 pessoas</p>
+                    </div>
+                    <span class="text-sm font-semibold text-primary shrink-0 whitespace-nowrap">R$ 240 a R$ 280</span>
+                </button>
+
+                <button type="button" onclick="selectBirthdayCakeSize('20cm', '20 a 25 pessoas', 'R$ 320,00 a R$ 360,00')" class="w-full flex items-center justify-between gap-4 p-4 rounded-2xl border-2 border-secondary/60 bg-white hover:border-primary hover:bg-secondary/20 transition-colors text-left">
+                    <div>
+                        <p class="font-bold text-dark">20cm</p>
+                        <p class="text-xs text-gray-500">Serve de 20 a 25 pessoas</p>
+                    </div>
+                    <span class="text-sm font-semibold text-primary shrink-0 whitespace-nowrap">R$ 320 a R$ 360</span>
+                </button>
+
+                <button type="button" onclick="selectBirthdayCakeSize('30cm', '45 a 55 pessoas', 'R$ 360,00 a R$ 450,00')" class="w-full flex items-center justify-between gap-4 p-4 rounded-2xl border-2 border-secondary/60 bg-white hover:border-primary hover:bg-secondary/20 transition-colors text-left">
+                    <div>
+                        <p class="font-bold text-dark">30cm</p>
+                        <p class="text-xs text-gray-500">Serve de 45 a 55 pessoas</p>
+                    </div>
+                    <span class="text-sm font-semibold text-primary shrink-0 whitespace-nowrap">R$ 360 a R$ 450</span>
+                </button>
+
+                <p class="text-xs text-gray-500 pt-2">O valor final varia conforme o recheio e a decoração escolhidos. Fale com a gente pelo WhatsApp para confirmar.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Fan Carousel Lightbox -->
     <div id="fan-lightbox" class="hidden fixed inset-0 z-[200] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 cursor-zoom-out opacity-0 transition-opacity duration-300">
         <button id="fan-lightbox-close" type="button" aria-label="Fechar" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10">
@@ -939,7 +980,7 @@
 
                 <div>
                     <p class="text-sm font-medium text-dark mb-3">Toque para selecionar os produtos</p>
-                    <div id="order-product-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+                    <div id="order-product-list"></div>
                 </div>
             </div>
 
@@ -955,34 +996,74 @@
     <!-- Custom Order Modal logic -->
     <script>
         const ORDER_PRODUCTS = [
-            { name: 'Chocolate Intenso', price: 120, img: 'img/bolo-chocolate-cobertura.jpg' },
-            { name: 'Fubá Cremoso', price: 95, img: 'img/bolo-fuba-cremoso.jpg' },
-            { name: 'Especial Naked Cake', price: 180, img: 'img/bolo-naked-cake-real-cropped.jpg' },
-            { name: 'Torta de Chocolate', price: 85, img: 'img/torta-chocolate.jpg' },
-            { name: 'Rocambole Doce de Leite', price: 60, img: 'img/rocambole-doce-de-leite.jpg' },
-            { name: 'Crepe de Queijo', price: 28, img: 'img/crepe-queijo.jpg' },
-            { name: 'Coxinha Sem Glúten', price: 12, img: 'img/coxinhas.jpg' },
-            { name: 'Empada Artesanal', price: 10, img: 'img/empadas.jpg' },
+            // Bolos Caseiros
+            { name: 'Bolo de Cenoura', price: 38, category: 'Bolos Caseiros' },
+            { name: 'Bolo de Cenoura c/ Fubá (Sem Glúten e Sem Lactose)', price: 35, category: 'Bolos Caseiros', img: 'img/bolo-fuba.jpg' },
+            { name: 'Bolo de Laranja (Sem Lactose)', price: 40, category: 'Bolos Caseiros' },
+            { name: 'Bolo de Chocolate (Sem Lactose)', price: 40, category: 'Bolos Caseiros', img: 'img/bolo-chocolate-cobertura.jpg' },
+            { name: 'Bolo de Gotas de Chocolate', price: 40, category: 'Bolos Caseiros' },
+            { name: 'Bolo de Cenoura c/ Cobertura de Chocolate', price: 46, category: 'Bolos Caseiros', img: 'img/bolo-cobertura-2.jpg' },
+            { name: 'Bolo de Baunilha', price: 38, category: 'Bolos Caseiros' },
+            { name: 'Bolo de Churros', price: 50, category: 'Bolos Caseiros' },
+            { name: 'Bolo de Canela', price: 38, category: 'Bolos Caseiros' },
+            { name: 'Bolo Piscina de Chocolate', price: 50, category: 'Bolos Caseiros' },
+            // Salgados
+            { name: 'Enroladinho de Pizza', price: 30, category: 'Salgados' },
+            { name: 'Enroladinho de Salsicha (Sem Lactose)', price: 32, category: 'Salgados' },
+            { name: 'Panqueca de Frango (Sem Lactose)', price: 35, category: 'Salgados', unit: '4 unidades' },
+            { name: 'Empadão de Frango (Sem Lactose)', price: 40, category: 'Salgados' },
+            { name: 'Coxinha (Sem Lactose)', price: 58, category: 'Salgados', img: 'img/coxinhas.jpg', unit: '25 unidades' },
+            { name: 'Empadinha', price: 58, category: 'Salgados', img: 'img/empadas.jpg', unit: '25 unidades' },
+            { name: 'Pastel Assado 25un (Sem Lactose)', price: 58, category: 'Salgados' },
+            { name: 'Pastel Frito 25un (Sem Lactose)', price: 60, category: 'Salgados' },
+            { name: 'Pão de Forma Tradicional', price: 60, category: 'Salgados' },
+            { name: 'Pão de Forma Zero Lactose', price: 70, category: 'Salgados' },
+            // Doces
+            { name: 'Rocambole de Doce de Leite', price: 65, category: 'Doces', img: 'img/rocambole-doce-de-leite.jpg' },
+            { name: 'Churros', price: 55, category: 'Doces' },
         ];
         const selectedProducts = new Set();
 
         function renderOrderProducts() {
             const list = document.getElementById('order-product-list');
             if (list.childElementCount) return;
+            const categories = [];
             ORDER_PRODUCTS.forEach((product) => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'order-product-item relative flex flex-col items-center text-center gap-1 p-2 pt-3 rounded-2xl border-2 border-transparent bg-white hover:border-primary/40 transition-colors';
-                btn.innerHTML = `
-                    <img src="${product.img}" alt="${product.name}" class="w-full h-16 object-cover rounded-lg">
-                    <span class="text-xs font-medium text-dark leading-tight">${product.name}</span>
-                    <span class="text-xs text-primary font-semibold">R$ ${product.price}</span>
-                    <span class="order-check hidden absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-primary text-white items-center justify-center text-xs shadow">
-                        <i class="fa-solid fa-check"></i>
-                    </span>
-                `;
-                btn.addEventListener('click', () => toggleProduct(product.name, btn));
-                list.appendChild(btn);
+                let group = categories.find((c) => c.name === product.category);
+                if (!group) { group = { name: product.category, items: [] }; categories.push(group); }
+                group.items.push(product);
+            });
+            categories.forEach((group) => {
+                const heading = document.createElement('p');
+                heading.className = 'text-xs font-bold uppercase tracking-wide text-accent mb-2 mt-4 first:mt-0';
+                heading.textContent = group.name;
+                list.appendChild(heading);
+
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-2 sm:grid-cols-3 gap-3';
+                group.items.forEach((product) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'order-product-item relative flex flex-col items-center text-center gap-1 p-2 pt-3 rounded-2xl border-2 border-transparent bg-white hover:border-primary/40 transition-colors';
+                    const media = product.img
+                        ? `<img src="${product.img}" alt="${product.name}" class="w-full h-16 object-cover rounded-lg">`
+                        : `<span class="w-full h-16 rounded-lg bg-secondary/40 flex items-center justify-center text-primary/50"><i class="fa-solid fa-utensils text-lg"></i></span>`;
+                    const unitLine = product.unit
+                        ? `<span class="text-[11px] text-gray-500 leading-tight">${product.unit}</span>`
+                        : '';
+                    btn.innerHTML = `
+                        ${media}
+                        <span class="text-xs font-medium text-dark leading-tight">${product.name}</span>
+                        ${unitLine}
+                        <span class="text-xs text-primary font-semibold">R$ ${product.price}</span>
+                        <span class="order-check hidden absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-primary text-white items-center justify-center text-xs shadow">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+                    `;
+                    btn.addEventListener('click', () => toggleProduct(product.name, btn));
+                    grid.appendChild(btn);
+                });
+                list.appendChild(grid);
             });
         }
 
@@ -1046,7 +1127,10 @@
         function submitOrder() {
             const name = document.getElementById('order-name').value.trim();
             if (!name || selectedProducts.size === 0) return;
-            const items = Array.from(selectedProducts).map((item) => `- ${item}`).join('\n');
+            const items = Array.from(selectedProducts).map((item) => {
+                const product = ORDER_PRODUCTS.find((p) => p.name === item);
+                return product && product.unit ? `- ${item} (${product.unit})` : `- ${item}`;
+            }).join('\n');
             const message = `Olá! Meu nome é ${name}. Gostaria de fazer o seguinte pedido:\n${items}`;
             window.open(`https://wa.me/5531971813988?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
             closeOrderModal();
@@ -1073,6 +1157,36 @@
                 menuOverlay.addEventListener('click', (e) => { if (e.target === menuOverlay) closeMenuModal(); });
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape' && !menuOverlay.classList.contains('hidden')) closeMenuModal();
+                });
+            }
+        });
+
+        function openBirthdayCakeModal() {
+            const overlay = document.getElementById('birthday-modal');
+            overlay.classList.remove('hidden');
+            requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBirthdayCakeModal() {
+            const overlay = document.getElementById('birthday-modal');
+            overlay.style.opacity = '0';
+            document.body.style.overflow = '';
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+        }
+
+        function selectBirthdayCakeSize(size, serves, priceRange) {
+            const message = `Olá! Quero encomendar: Bolo Aniversário - Tamanho ${size} (serve ${serves}) - ${priceRange}.`;
+            window.open(`https://wa.me/5531971813988?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+            closeBirthdayCakeModal();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const birthdayOverlay = document.getElementById('birthday-modal');
+            if (birthdayOverlay) {
+                birthdayOverlay.addEventListener('click', (e) => { if (e.target === birthdayOverlay) closeBirthdayCakeModal(); });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !birthdayOverlay.classList.contains('hidden')) closeBirthdayCakeModal();
                 });
             }
         });
